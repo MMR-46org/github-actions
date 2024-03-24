@@ -1,6 +1,13 @@
 name: Developer_Branch_CI
 
-on: [workflow_call]
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        type: string
+        required: true
+
+
 jobs:
   CI-Steps:
     runs-on: self-hosted
@@ -15,7 +22,8 @@ jobs:
         run: echo Integration Tests
 
       - name: code quality
-        run: sonar-scanner -Dsonar.host.url=http://sonarqube-internal.madhanmohanreddy.tech:9000 -Dsonar.login=${SONAR_USER} -Dsonar.password=${SONAR_PASS} -Dsonar.projectKey=expense-backend
+        run: sonar-scanner -Dsonar.host.url=http://sonarqube-internal.madhanmohanreddy.tech:9000 -Dsonar.login=${SONAR_USER} -Dsonar.password=${SONAR_PASS} -Dsonar.projectKey=${service_name}  -Dsonar.qualitygate.wait=true
         env:
           SONAR_USER: ${{ secrets.SONAR_USER }}
           SONAR_PASS: ${{ secrets.SONAR_PASS }}
+          service_name: ${{ inputs.service_name }}
