@@ -1,6 +1,13 @@
 name: Release_Tags.yml
 
-on: [workflow_call]
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        type: string
+        required: true
+
+
 jobs:
   check-bats-version:
     runs-on: self-hosted
