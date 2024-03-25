@@ -25,4 +25,9 @@ jobs:
         run: echo secret detection in source code
 
       - name: artifact produce
-        run: echo artifact produce
+        env:
+          service_name: ${{ inputs.service_name }}
+        run:  |
+          npm install
+          zip -r ${service_name}-${GITHUB_REF_NAME}.zip * -x .github
+          curl -v -X PUT -u admin:Admin123 -T ${service_name}-${GITHUB_REF_NAME}.zip http://artifactory-internal.madhanmohanreddy.tech:8081/artifactory/service_name/${service_name}-${GITHUB_REF_NAME}.zip
