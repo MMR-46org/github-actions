@@ -9,7 +9,7 @@ on:
 
 
 jobs:
-  check-bats-version:
+  CI_Steps:
     runs-on: self-hosted
     steps:
       - name: checkout
@@ -24,9 +24,9 @@ jobs:
       - name: secret detection in source code
         run: echo secret detection in source code
 
-      - name: download dependencies
-        if: inputs.service_name == 'expense-backend'
-        run: install  nodejs npm
+#      - name: download dependencies
+#        if: inputs.service_name == 'expense-backend'
+#        run: install npm
 
 
       - name: artifact produce
@@ -34,5 +34,6 @@ jobs:
           service_name: ${{ inputs.service_name }}
           ARTIFACTORY_CREDENTIALS: ${{ secrets.ARTIFACTORY_CREDENTIALS }}
         run: |
+          npm install
           zip -r ${service_name}-${GITHUB_REF_NAME}.zip * -x .github
           curl -f -v -X PUT -u ${ARTIFACTORY_CREDENTIALS} -T ${GITHUB_REF_NAME}.zip http://artifactory-internal.madhanmohanreddy.tech:8081/artifactory/${service_name}-${GITHUB_REF_NAME}.zip 
