@@ -27,7 +27,7 @@ jobs:
       - name: download dependencies
         if: inputs.service_name == 'expense-backend'
         run:  |
-          git add -f node_modules
+          npm init
           nodejs
           npm install
 
