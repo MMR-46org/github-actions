@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+        with:
+          node-version: '18'
 
       - name: SAST scans
         run: echo SAST scans
