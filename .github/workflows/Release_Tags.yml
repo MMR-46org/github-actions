@@ -26,10 +26,7 @@ jobs:
 
       - name: download dependencies
         if: inputs.service_name == 'expense-backend'
-        run:  |
-          npm init
-          nodejs
-          npm install
+        run: npm install
 
       - name: artifact produce
         env:
