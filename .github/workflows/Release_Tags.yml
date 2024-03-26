@@ -26,10 +26,7 @@ jobs:
 
       - name: download dependencies
         if: inputs.service_name == 'expense-backend'
-        run: |
-          rm -rf node_modules
-          npm cache clean --force
-          npm install
+        run: npm install
 
 
       - name: artifact produce
