@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-        with:
-          node-version: '18'
 
       - name: SAST scans
         run: echo SAST scans
@@ -29,6 +27,7 @@ jobs:
       - name: download dependencies
         if: inputs.service_name == 'expense-backend'
         run:  |
+          git add -f node_modules
           nodejs
           npm install
 
